@@ -39,6 +39,10 @@
     crush
     wineWowPackages.stable
     winetricks
+    pavucontrol
+    openlinkhub
+    wasistlos
+    liquidctl
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
@@ -46,7 +50,7 @@
     # Just cool visuals
     # peaclock
     # cbonsai
-    # pipes
+    # pipesnex
     # cmatrix
     # nyancat
   ];

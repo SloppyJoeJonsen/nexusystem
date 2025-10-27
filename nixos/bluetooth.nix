@@ -1,8 +1,21 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   environment.systemPackages = with pkgs; [ blueman ];
+  
   hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
+    enable = true; # enables support for Bluetooth
+    powerOnBoot = true; # powers up the default Bluetooth controller on boot
+    settings = {
+      General = {
+        Privacy = "device";
+        JustWorksRepairing = "always";
+        Class = "0x000100";
+        FastConnectable = "true";
+      };
+    };
   };
+  
   services.blueman.enable = true;
+  
+  # Add xpadneo driver for Xbox controller
+  boot.extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
 }

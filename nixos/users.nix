@@ -8,6 +8,7 @@ in {
       isNormalUser = true;
       description = "${username} account";
       extraGroups = [ "networkmanager" "wheel" ];
+      initialPassword = "changeme";
     };
   };
 }

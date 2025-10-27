@@ -40,13 +40,14 @@ in {
   programs.hyprpanel = {
     enable = true;
 
-    settings = {
+    settings = lib.mkForce {
       bar.layouts = {
         "*" = {
           left = [ "dashboard" "workspaces" "windowtitle" ];
           middle = [ "media" "cava" ];
           right = rightItems;
         };
+        "DP-2" = [];
       };
 
       theme.font.name = font;

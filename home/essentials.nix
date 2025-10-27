@@ -46,12 +46,11 @@
     optipng
     jpegoptim
     rmtrash
-
     gparted # partitions
     gnome-disk-utility # mounting iso
     peazip # for zip and rar files
     qdirstat # Storage management
     resources # Task manager
-    notepadqq # Notepad++
+     # Notepad++
   ];
 }

@@ -23,34 +23,57 @@ in {
   # Use mpvpaper for animated backgrounds
   home.packages = with pkgs; lib.mkIf isAnimated [ mpvpaper ];
 
-  wayland.windowManager.hyprland.settings.exec-once = lib.mkIf isAnimated [''
-    mpvpaper -o "no-audio --loop --panscan=1.0" ALL ${
-      toString backgroundImage
-    } & echo $! > /tmp/mpvpaper.pid
-  ''];
+  # wayland.windowManager.hyprland.settings.exec-once = lib.mkIf isAnimated [''
+  #   mpvpaper -o "no-audio --loop --panscan=1.0" ALL ${
+  #     toString backgroundImage
+  #   } & echo $! > /tmp/mpvpaper.pid
+  # ''];
 
   # Image rotation in case somebody wants it
-  # wayland.windowManager.hyprland.settings.exec-once = lib.mkIf isAnimated [
-  #   (pkgs.writeShellScript "rotate-wallpaper" ''
-  #     wallpapers=(
-  #       "${./berserk-eclipse.mp4}"
-  #       "${./berserk.mp4}"
-  #       "${./galaxy-cat.mp4}"
-  #       "${./initial-d.mp4}"
-  #       "${./one-piece.mp4}"
-  #       "${./pink-lofi.mp4}"
-  #       "${./touch-grass.mp4}"
-  #     )
-  #
-  #     while true; do
-  #       for wp in "''${wallpapers[@]}"; do
-  #         pkill -f mpvpaper
-  #         mpvpaper -o "no-audio --loop --panscan=1.0" ALL "$wp" &
-  #         sleep 5
-  #       done
-  #     done
-  #   '')
-  # ];
+ wayland.windowManager.hyprland.settings.exec-once = lib.mkIf isAnimated [
+  (pkgs.writeShellScript "rotate-wallpaper" ''
+    # Define wallpapers for each monitor
+    monitor1_wallpapers=(
+      "${./dandadan.mp4}"
+      "${./berserk.mp4}"
+      "${./pink-lofi.mp4}"
+    )
+    
+    monitor2_wallpapers=(
+      "${./berserk-eclipse.mp4}"
+      "${./galaxy-cat.mp4}"
+      "${./touch-grass.mp4}"
+    )
+    
+    monitor3_wallpapers=(
+      "${./initial-d.mp4}"
+      "${./one-piece.mp4}"
+      "${./dandadan.mp4}"
+    )
+    
+    # Function to rotate wallpapers on a specific monitor
+    rotate_monitor() {
+      local monitor=$1
+      shift
+      local wallpapers=("$@")
+      local index=0
+      
+      while true; do
+        mpvpaper -o "no-audio --loop --panscan=1.0" "$monitor" "''${wallpapers[$index]}" &
+        sleep 300
+        pkill -f "mpvpaper.*$monitor"
+        index=$(( (index + 1) % ''${#wallpapers[@]} ))
+      done
+    }
+    
+    # Start rotation for each monitor in background
+    rotate_monitor "DP-1" "''${monitor1_wallpapers[@]}" &
+    rotate_monitor "DP-2" "''${monitor2_wallpapers[@]}" &
+    rotate_monitor "DP-3" "''${monitor3_wallpapers[@]}" &
+    
+    wait
+  '')
+];
 
   # Disable hyprpaper when using animated backgrounds
   stylix.targets.hyprland.hyprpaper.enable = lib.mkIf isAnimated false;

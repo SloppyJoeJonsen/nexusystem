@@ -22,8 +22,6 @@ in {
           [
             darkreader
             ublock-origin
-            vimium-c
-            vue-js-devtools
             # onetab
             # firefox-color
             # firefox-translations

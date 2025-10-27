@@ -1,13 +1,17 @@
-local Path = require("plenary.path")
 local workspacePaths = {
 	{ name = "personal", path = "/home/romek/notes/personal" },
 	{ name = "work", path = "/home/romek/notes/work" },
 }
 local workspaces = {}
-for _, workspaceInfo in ipairs(workspacePaths) do
-	local workspacePath = workspaceInfo.path
-	if Path:new(workspacePath):exists() then
-		table.insert(workspaces, { name = workspaceInfo.name, path = workspacePath })
+
+-- Lazy-load Path when needed
+local function check_workspace_paths()
+	local Path = require("plenary.path")
+	for _, workspaceInfo in ipairs(workspacePaths) do
+		local workspacePath = workspaceInfo.path
+		if Path:new(workspacePath):exists() then
+			table.insert(workspaces, { name = workspaceInfo.name, path = workspacePath })
+		end
 	end
 end
 
@@ -712,14 +716,14 @@ return {
 					if reg == "" then
 						return ""
 					end -- not recording
-					return " @" .. reg
+					return " @" .. reg
 				end,
 				color = { fg = colors.fg },
 			})
 
 			ins_right({
 				"diff",
-				symbols = { added = " ", modified = "󰝤 ", removed = " " },
+				symbols = { added = " ", modified = "󰝤 ", removed = " " },
 				diff_color = {
 					added = { fg = colors.green },
 					modified = { fg = colors.orange },
@@ -731,7 +735,7 @@ return {
 			ins_right({
 				"diagnostics",
 				sources = { "nvim_diagnostic" },
-				symbols = { error = " ", warn = " ", info = " " },
+				symbols = { error = " ", warn = " ", info = " " },
 				diagnostics_color = {
 					error = { fg = colors.red },
 					warn = { fg = colors.yellow },
@@ -744,12 +748,16 @@ return {
 	{
 		"obsidian-nvim/obsidian.nvim",
 		version = "*",
-		opts = {
-			workspaces = workspaces,
-			legacy_commands = false,
-			-- ui = { enable = false },
-			-- disable_frontmatter = true,
-		},
+		opts = function()
+			-- Check workspace paths after plenary is loaded
+			check_workspace_paths()
+			return {
+				workspaces = workspaces,
+				legacy_commands = false,
+				-- ui = { enable = false },
+				-- disable_frontmatter = true,
+			}
+		end,
 		lazy = false,
 		ft = "markdown",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -777,7 +785,7 @@ return {
 			-- 	[[██████╔╝██║   ██║██╔████╔██║█████╗  █████╔╝    ██║     ██║   ██║██║  ██║█████╗  ███████╗]],
 			-- 	[[██╔══██╗██║   ██║██║╚██╔╝██║██╔══╝  ██╔═██╗    ██║     ██║   ██║██║  ██║██╔══╝  ╚════██║]],
 			-- 	[[██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗██║  ██╗██╗╚██████╗╚██████╔╝██████╔╝███████╗███████║]],
-			-- 	[[╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝]],
+			-- 	[[╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝
 			-- }
 
 			-- # From: https://github.com/Chick2D/neofetch-themes/
@@ -813,7 +821,7 @@ return {
 					local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 					dashboard.section.footer.val = {
 						" ",
-						" Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins  in " .. ms .. " ms ",
+						" Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins  in " .. ms .. " ms ",
 					}
 					pcall(vim.cmd.AlphaRedraw)
 				end,
