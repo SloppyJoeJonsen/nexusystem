@@ -131,4 +131,7 @@
       };
     });
   };
+  xdg.configFile."rofi-rbw.rc".text = ''
+    keybindings Alt+1:type:username:tab:password,Alt+2:copy:username,Alt+3:copy:password,Alt+4:type:totp,Alt+c:copy:password,Alt+t:copy:totp,Alt+m::menu
+  '';
 }

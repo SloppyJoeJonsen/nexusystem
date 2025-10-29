@@ -37,6 +37,8 @@ in {
       "${./dandadan.mp4}"
       "${./berserk.mp4}"
       "${./pink-lofi.mp4}"
+      "${./minecraft.mp4}"
+      "${./bakugo.mp4}"
     )
     
     monitor2_wallpapers=(
@@ -46,8 +48,9 @@ in {
     )
     
     monitor3_wallpapers=(
+      "${./minecraft.mp4}"
       "${./initial-d.mp4}"
-      "${./one-piece.mp4}"
+      "${./bakugo.mp4}"
       "${./dandadan.mp4}"
     )
     

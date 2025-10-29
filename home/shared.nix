@@ -39,10 +39,11 @@
     crush
     wineWowPackages.stable
     winetricks
-    pavucontrol
-    openlinkhub
-    wasistlos
+    pavucontrol #sound
+    openlinkhub #ka
+    wasistlos # whatsapp
     liquidctl
+    xivlauncher
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
