@@ -67,6 +67,7 @@ in {
 
       exec-once = [
         "lock" # pseudo display manager
+        "steam"
         "dbus-update-activation-environment --systemd --all &"
         "systemctl --user enable --now hypridle.service &"
         "foot --server & echo $! > /tmp/foot-server.pid"
