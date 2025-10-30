@@ -1,9 +1,17 @@
 { config, pkgs, ... }: {
   imports =
-    [ ./variables.nix ../../nixos/shared.nix ./hardware-configuration.nix ];
-  
+    [ ./variables.nix 
+    ../../nixos/shared.nix 
+    ./hardware-configuration.nix ];
+
   home-manager.users."${config.var.username}" = import ./home.nix;
-  
+
+  # Mount the 2TB NVMe drive
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/3f91c9cf-fa1d-4e04-a801-3cec77623768";
+    fsType = "ext4";
+  };
+
   # CoreCtrl for AMD GPU overclocking
   programs.corectrl = {
     enable = true;
@@ -12,16 +20,16 @@
       ppfeaturemask = "0xffffffff";  # Unlock all features for RDNA3
     };
   };
-  
+
   # Add user to corectrl group
   users.users."${config.var.username}".extraGroups = [ "corectrl" ];
-  
+
   # Enable the D-Bus helper service for CoreCtrl
   services.dbus.packages = [ pkgs.corectrl ];
-  
+
   # Enable ALSA state restoration
   hardware.alsa.enablePersistence = true;
-  
+
   # ALSA restore that waits for PipeWire to be ready
   systemd.services.alsa-restore-after-pipewire = {
     description = "Restore Sound Card State After PipeWire";
@@ -48,7 +56,7 @@
       RemainAfterExit = true;
     };
   };
-  
+
   services.udev.extraRules = ''
     # OBS virtual camera
     KERNEL=="video[0-9]*", GROUP="video", MODE="0666"
@@ -67,7 +75,7 @@
     # AMD HD Audio as card 3
     SUBSYSTEM=="sound", KERNEL=="card*", DEVPATH=="*/0000:13:00.6/*", ATTR{number}="3"
   '';
-  
+
   # Don't touch this
   system.stateVersion = "24.05";
 }

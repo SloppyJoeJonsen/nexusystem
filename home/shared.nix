@@ -45,6 +45,7 @@
     liquidctl
     xivlauncher
     corectrl
+    prismlauncher
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
