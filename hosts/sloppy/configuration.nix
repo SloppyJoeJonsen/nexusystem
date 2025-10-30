@@ -1,8 +1,10 @@
 { config, pkgs, ... }: {
-  imports =
-    [ ./variables.nix 
-    ../../nixos/shared.nix 
-    ./hardware-configuration.nix ];
+  imports = [
+    ./variables.nix
+    ../../nixos/shared.nix
+    ./hardware-configuration.nix
+    ./alsa-restore.nix
+  ];
 
   home-manager.users."${config.var.username}" = import ./home.nix;
 
@@ -26,37 +28,7 @@
 
   # Enable the D-Bus helper service for CoreCtrl
   services.dbus.packages = [ pkgs.corectrl ];
-
-  # Enable ALSA state restoration
-  hardware.alsa.enablePersistence = true;
-
-  # ALSA restore that waits for PipeWire to be ready
-  systemd.services.alsa-restore-after-pipewire = {
-    description = "Restore Sound Card State After PipeWire";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "sound.target" "alsa-store.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "restore-alsa-smart" ''
-        # Wait for PipeWire user service to be active (max 60 seconds)
-        for i in {1..60}; do
-          if systemctl --user -M ${config.var.username}@ is-active pipewire.service >/dev/null 2>&1; then
-            echo "PipeWire is active, waiting 3 more seconds for full initialization..."
-            sleep 3
-            ${pkgs.alsa-utils}/bin/alsactl restore
-            echo "ALSA state restored!"
-            exit 0
-          fi
-          echo "Waiting for PipeWire... ($i/60)"
-          sleep 1
-        done
-        echo "Timeout waiting for PipeWire, restoring anyway..."
-        ${pkgs.alsa-utils}/bin/alsactl restore
-      '';
-      RemainAfterExit = true;
-    };
-  };
-
+  # udev rules are for the alsa-restore, so the sound blaster is always device 1 (sound blaster x ae 5 problem)
   services.udev.extraRules = ''
     # OBS virtual camera
     KERNEL=="video[0-9]*", GROUP="video", MODE="0666"
