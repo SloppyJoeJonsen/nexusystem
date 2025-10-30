@@ -9,9 +9,9 @@
     ];
   };
 
-  # Launch on startup, with replay buffer started, get rid of "OBS did not shut down properly" error.
-  # Need to setup scene to capture and "file -> settings -> hotkeys -> save replay" hotkey.
-  # Couldn't find a way to do this declaratively.
-  wayland.windowManager.hyprland.settings.exec-once =
-    [ "obs --startreplaybuffer --minimize-to-tray --disable-shutdown-check " ];
+  wayland.windowManager.hyprland.settings = {
+    exec-once = [
+      "sleep 5 && rm -rf ~/.config/obs-studio/.sentinel && env QT_QPA_PLATFORM=xcb obs --startreplaybuffer --minimize-to-tray"
+    ];
+  };
 }
