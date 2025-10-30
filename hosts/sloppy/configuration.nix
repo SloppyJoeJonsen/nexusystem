@@ -1,39 +1,55 @@
 { config, pkgs, ... }: {
   imports =
     [ ./variables.nix ../../nixos/shared.nix ./hardware-configuration.nix ];
-home-manager.users."${config.var.username}" = import ./home.nix;
-
-# Enable ALSA state restoration
-hardware.alsa.enablePersistence = true;
-
-# ALSA restore that waits for PipeWire to be ready
-systemd.services.alsa-restore-after-pipewire = {
-  description = "Restore Sound Card State After PipeWire";
-  wantedBy = [ "multi-user.target" ];
-  after = [ "sound.target" "alsa-store.service" ];
-  serviceConfig = {
-    Type = "oneshot";
-    ExecStart = pkgs.writeShellScript "restore-alsa-smart" ''
-      # Wait for PipeWire user service to be active (max 60 seconds)
-      for i in {1..60}; do
-        if systemctl --user -M ${config.var.username}@ is-active pipewire.service >/dev/null 2>&1; then
-          echo "PipeWire is active, waiting 3 more seconds for full initialization..."
-          sleep 3
-          ${pkgs.alsa-utils}/bin/alsactl restore
-          echo "ALSA state restored!"
-          exit 0
-        fi
-        echo "Waiting for PipeWire... ($i/60)"
-        sleep 1
-      done
-      echo "Timeout waiting for PipeWire, restoring anyway..."
-      ${pkgs.alsa-utils}/bin/alsactl restore
-    '';
-    RemainAfterExit = true;
+  
+  home-manager.users."${config.var.username}" = import ./home.nix;
+  
+  # CoreCtrl for AMD GPU overclocking
+  programs.corectrl = {
+    enable = true;
+    gpuOverclock = {
+      enable = true;
+      ppfeaturemask = "0xffffffff";  # Unlock all features for RDNA3
+    };
   };
-};
-
-services.udev.extraRules = ''
+  
+  # Add user to corectrl group
+  users.users."${config.var.username}".extraGroups = [ "corectrl" ];
+  
+  # Enable the D-Bus helper service for CoreCtrl
+  services.dbus.packages = [ pkgs.corectrl ];
+  
+  # Enable ALSA state restoration
+  hardware.alsa.enablePersistence = true;
+  
+  # ALSA restore that waits for PipeWire to be ready
+  systemd.services.alsa-restore-after-pipewire = {
+    description = "Restore Sound Card State After PipeWire";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "sound.target" "alsa-store.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "restore-alsa-smart" ''
+        # Wait for PipeWire user service to be active (max 60 seconds)
+        for i in {1..60}; do
+          if systemctl --user -M ${config.var.username}@ is-active pipewire.service >/dev/null 2>&1; then
+            echo "PipeWire is active, waiting 3 more seconds for full initialization..."
+            sleep 3
+            ${pkgs.alsa-utils}/bin/alsactl restore
+            echo "ALSA state restored!"
+            exit 0
+          fi
+          echo "Waiting for PipeWire... ($i/60)"
+          sleep 1
+        done
+        echo "Timeout waiting for PipeWire, restoring anyway..."
+        ${pkgs.alsa-utils}/bin/alsactl restore
+      '';
+      RemainAfterExit = true;
+    };
+  };
+  
+  services.udev.extraRules = ''
     # OBS virtual camera
     KERNEL=="video[0-9]*", GROUP="video", MODE="0666"
     # Logitech devices for Solaar
@@ -50,7 +66,8 @@ services.udev.extraRules = ''
     SUBSYSTEM=="sound", KERNEL=="card*", DEVPATH=="*/0000:13:00.1/*", ATTR{number}="2"
     # AMD HD Audio as card 3
     SUBSYSTEM=="sound", KERNEL=="card*", DEVPATH=="*/0000:13:00.6/*", ATTR{number}="3"
-'';
-# Don't touch this
-system.stateVersion = "24.05";
+  '';
+  
+  # Don't touch this
+  system.stateVersion = "24.05";
 }

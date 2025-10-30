@@ -44,6 +44,7 @@
     wasistlos # whatsapp
     liquidctl
     xivlauncher
+    corectrl
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
