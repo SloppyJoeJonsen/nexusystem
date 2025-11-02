@@ -46,6 +46,7 @@
     xivlauncher
     corectrl
     prismlauncher
+    vdhcoapp
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts

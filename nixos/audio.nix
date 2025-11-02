@@ -13,23 +13,10 @@
       "10-clock-rate" = {
         "context.properties" = {
           "default.clock.rate" = 48000;
-          "default.clock.quantum" = 1024;
+          "default.clock.quantum" = 1024;      # Increase from default 512
           "default.clock.min-quantum" = 1024;
           "default.clock.max-quantum" = 2048;
         };
-      };
-      # Disable automatic gain control
-      "10-disable-agc" = {
-        "context.modules" = [
-          {
-            name = "libpipewire-module-echo-cancel";
-            args = {
-              "aec.args" = {
-                "webrtc.gain_control" = false;
-              };
-            };
-          }
-        ];
       };
     };
     
@@ -37,9 +24,7 @@
       enable = true;
       extraConfig = {
         "10-disable-camera" = {
-          "wireplumber.profiles" = { 
-            main."monitor.libcamera" = "disabled"; 
-          };
+          "wireplumber.profiles" = { main."monitor.libcamera" = "disabled"; };
         };
       };
     };
