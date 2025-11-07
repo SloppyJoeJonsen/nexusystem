@@ -47,6 +47,8 @@
     corectrl
     prismlauncher
     vdhcoapp
+    ryubing
+    tailscale
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts

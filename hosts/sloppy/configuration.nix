@@ -9,7 +9,7 @@
   home-manager.users."${config.var.username}" = import ./home.nix;
 
   # Mount the 2TB NVMe drive
-  fileSystems."/mnt/games" = {
+  fileSystems."/storage/games" = {
     device = "/dev/disk/by-uuid/3f91c9cf-fa1d-4e04-a801-3cec77623768";
     fsType = "ext4";
   };
