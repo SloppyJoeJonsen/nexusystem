@@ -15,7 +15,6 @@
     ./utils.nix
     ./hyprland.nix
     ./glance.nix
-    ./syncthing.nix
     ./pam.nix
     ./optimize-battery.nix
     ./gpg.nix
