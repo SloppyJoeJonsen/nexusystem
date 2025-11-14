@@ -42,12 +42,11 @@
     pavucontrol #sound
     openlinkhub #ka
     wasistlos # whatsapp
-    liquidctl
-    xivlauncher
-    corectrl
-    prismlauncher
-    vdhcoapp
-    ryubing
+    liquidctl #Watercooling
+    corectrl #actually keine ahnung mehr was das ist
+    prismlauncher #Minecraft
+    vdhcoapp #Auch keine ahnung
+    ryubing #Switch emulator
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
