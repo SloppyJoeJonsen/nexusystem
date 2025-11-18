@@ -9,9 +9,9 @@
     ./programs/discord
     ./programs/lazygit
     ./programs/photogimp # Gimp with photoshop like UI
-    ./programs/obs-studio
     ./programs/btop
     ./system/php # Laravel <3
+    ./programs/gpu-screen
   ];
 
   home.packages = with pkgs; [
@@ -41,7 +41,6 @@
     winetricks
     pavucontrol #sound
     openlinkhub #ka
-    wasistlos # whatsapp
     liquidctl #Watercooling
     corectrl #actually keine ahnung mehr was das ist
     prismlauncher #Minecraft
