@@ -15,7 +15,7 @@
   ];
 
   home.packages = with pkgs; [
-    mpv # Video player
+    vlc
     blanket # White-noise app
     obsidian # Note taking app
     gnome-calendar # Calendar
@@ -46,6 +46,7 @@
     prismlauncher #Minecraft
     vdhcoapp #Auch keine ahnung
     ryubing #Switch emulator
+    appimage-run
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts

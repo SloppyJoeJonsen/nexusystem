@@ -11,14 +11,14 @@
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       ''
-        gpu-screen-recorder \
+            sleep 10 && gpu-screen-recorder \
           -w DP-2 \
           -f 60 \
           -a "default_output" \
-          -a "alsa_input.usb-Trust_USB_microphone_Trust_USB_microphone-00.analog-stereo" \
+          -a "default_input" \
           -r 60 \
           -c mp4 \
-          -o "/storage/games/Vids"
+          -o "/storage/games/Vids" &
       ''
     ];
 
