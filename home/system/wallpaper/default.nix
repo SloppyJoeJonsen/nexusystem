@@ -34,7 +34,7 @@ in {
   (pkgs.writeShellScript "rotate-wallpaper" ''
     # Define wallpapers for each monitor
     monitor1_wallpapers=(
-      "${./dandadan.mp4}"
+      "${./gachia.mp4}"
       "${./berserk.mp4}"
       "${./pink-lofi.mp4}"
       "${./minecraft.mp4}"
@@ -43,6 +43,7 @@ in {
     
     monitor2_wallpapers=(
       "${./berserk-eclipse.mp4}"
+      "${./gachia.mp4}"
       "${./galaxy-cat.mp4}"
       "${./touch-grass.mp4}"
     )
@@ -51,7 +52,6 @@ in {
       "${./minecraft.mp4}"
       "${./initial-d.mp4}"
       "${./bakugo.mp4}"
-      "${./dandadan.mp4}"
     )
     
     # Function to rotate wallpapers on a specific monitor

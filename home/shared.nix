@@ -46,7 +46,8 @@
     prismlauncher #Minecraft
     vdhcoapp #Auch keine ahnung
     ryubing #Switch emulator
-    appimage-run
+    protontricks
+    nexusmods-app-unfree
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts

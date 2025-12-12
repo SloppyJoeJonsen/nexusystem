@@ -11,7 +11,7 @@
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       ''
-            sleep 10 && gpu-screen-recorder \
+            sleep 20 && gpu-screen-recorder \
           -w DP-2 \
           -f 60 \
           -a "default_output" \
