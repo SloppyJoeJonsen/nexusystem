@@ -27,7 +27,7 @@
     python3
     pnpm
     calibre # ebooks
-    onlyoffice-bin # Office stuff
+    onlyoffice-desktopeditors # Office stuff
     kdePackages.kdenlive # Video editor
     kdePackages.breeze # Dark mode and theming with stylix for kdenlive
     solaar # Logitech device manager
