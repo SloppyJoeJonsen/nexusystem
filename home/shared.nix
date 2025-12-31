@@ -47,7 +47,7 @@
     vdhcoapp #Auch keine ahnung
     ryubing #Switch emulator
     protontricks
-    nexusmods-app-unfree
+    r2modman
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
