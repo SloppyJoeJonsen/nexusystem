@@ -50,4 +50,18 @@
 
   # Don't touch this
   system.stateVersion = "24.05";
+
+  #ist für waydroid
+  virtualisation.waydroid.enable = true;
+
+    boot.kernelModules = [ "nf_tables" ];
+
+    networking.nftables.enable = true;
+
+      networking.firewall = {
+           enable = true;
+           allowedUDPPorts = [ 53 67 ];
+           trustedInterfaces = [ "waydroid0" ];
+       };
+
 }

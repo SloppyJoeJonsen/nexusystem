@@ -6,7 +6,6 @@
   # home-manager-options.extranix.com/?query=&release=master
 
   imports = [
-    ./programs/discord
     ./programs/lazygit
     ./programs/photogimp # Gimp with photoshop like UI
     ./programs/btop
@@ -16,6 +15,7 @@
 
   home.packages = with pkgs; [
     vlc
+
     blanket # White-noise app
     obsidian # Note taking app
     gnome-calendar # Calendar
@@ -39,15 +39,17 @@
     crush
     wineWowPackages.stable
     winetricks
-    pavucontrol #sound
+    pavucontrol #soundqq
     openlinkhub #ka
     liquidctl #Watercooling
     corectrl #actually keine ahnung mehr was das ist
     prismlauncher #Minecraft
     vdhcoapp #Auch keine ahnung
     ryubing #Switch emulator
-    protontricks
     r2modman
+    heroic-unwrapped
+    appimage-run
+    vesktop
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts
