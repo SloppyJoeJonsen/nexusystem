@@ -39,7 +39,7 @@
     crush
     wineWowPackages.stable
     winetricks
-    pavucontrol #soundqq
+    pavucontrol #sound
     openlinkhub #ka
     liquidctl #Watercooling
     corectrl #actually keine ahnung mehr was das ist

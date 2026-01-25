@@ -209,7 +209,7 @@ let
       	eval "$rofi_command -show calc -modi calc -no-show-match -no-sort"
       	command_found=1
       	elif [[ "$selected" == *"File explorer"* ]]; then
-      	uwsm app -- ${pkgs.xfce.thunar}/bin/thunar
+      	uwsm app -- ${pkgs.thunar}/bin/thunar
       	command_found=1
       	elif [[ "$selected" == *"Lock screen"* ]]; then
         lock

@@ -1,5 +1,11 @@
 # So best window tiling manager
-{ pkgs, config, inputs, lib, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  lib,
+  ...
+}:
 let
   helpers = import ../../../helpers { inherit lib; };
   border-size = config.theme.border-size;
@@ -13,7 +19,8 @@ let
   extraKeyboardLayouts = config.var.extraKeyboardLayouts;
   background = "rgb(" + config.lib.stylix.colors.base00 + ")";
   monitorConfig = config.var.monitorConfig;
-in {
+in
+{
 
   imports = [
     ./animations.nix
@@ -23,12 +30,15 @@ in {
   ];
 
   home.packages = with pkgs; [
+    qt5.qtwayland
     qt6.qtwayland
+    libsForQt5.qt5ct
     qt6Packages.qt6ct
     hyprshot
     hyprpicker
     swappy
     imv
+    feh
     wf-recorder
     wlr-randr
     wl-clipboard
@@ -67,15 +77,19 @@ in {
 
       exec-once = [
         "lock" # pseudo display manager
-        "steam -silent"
         "dbus-update-activation-environment --systemd --all &"
         "systemctl --user enable --now hypridle.service &"
         "foot --server & echo $! > /tmp/foot-server.pid"
-      ] ++ (if (!helpers.isEmpty config.theme.backgroundImage)
-      && (helpers.isStaticImage config.theme.backgroundImage) then
-        [ "systemctl --user enable --now hyprpaper.service &" ]
-      else
-        [ ]);
+      ]
+      ++ (
+        if
+          (!helpers.isEmpty config.theme.backgroundImage)
+          && (helpers.isStaticImage config.theme.backgroundImage)
+        then
+          [ "systemctl --user enable --now hyprpaper.service &" ]
+        else
+          [ ]
+      );
 
       monitor = [
         ",prefered,auto,1" # default for when monitor is not yet defined
@@ -86,13 +100,14 @@ in {
         "desc:CTV CTV 0x00000001,preferred,1920x0,1"
         "desc:Samsung Electric Company SAMSUNG 0x00000001,preferred,1920x0,1"
         "desc:Avolites Ltd HDTV,preferred,1920x0,1"
-      ] ++ monitorConfig;
+      ]
+      ++ monitorConfig;
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
         "MOZ_ENABLE_WAYLAND,1"
         "ANKI_WAYLAND,1"
-        "DISABLE_QT5_COMPAT,1"
+        "DISABLE_QT5_COMPAT,0"
         "NIXOS_OZONE_WL,1"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
@@ -102,6 +117,7 @@ in {
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "__GL_GSYNC_ALLOWED,0"
         "__GL_VRR_ALLOWED,0"
+        "DISABLE_QT5_COMPAT,0"
         "DIRENV_LOG_FORMAT,"
         "WLR_DRM_NO_ATOMIC,1"
         "WLR_BACKEND,vulkan"
@@ -152,55 +168,48 @@ in {
         disable_splash_rendering = true;
         disable_autoreload = true;
         focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
+        on_focus_under_fullscreen = 2;
         session_lock_xray = true; # Allows to see mpv background in hyprlock
       };
 
       windowrule = [
-        "float, tag:modal"
-        "pin, tag:modal"
-        "center, tag:modal"
-        # telegram media viewer
-        "float, title:^(Media viewer)$"
-
-        # gnome calculator
-        "float, class:^(org.gnome.Calculator)$"
-        "size 360 490, class:^(org.gnome.Calculator)$"
-
-        # make Firefox/Zen PiP window floating and sticky
-        "float, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
-
-        # idle inhibit while watching videos
-        "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
-        "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
-        "idleinhibit fullscreen, class:^(zen)$"
-
-        "stayfocused,class:^(pinentry)$"
-        "stayfocused,class:^(gcr-prompter)$"
-        "stayfocused,class:^(Gimp-2.10)$,title:.*Export Image as PNG.*"
-        "stayfocused,class:^(Gimp-2.10)$,title:.*Save Image.*"
-
-        "group,class:^(Gimp-2.10)"
-        "float,class:^(Gimp-2.10)$,title:.*Save Image.*"
-        "center 1,class:^(Gimp-2.10)$,title:.*Exposure.*"
-        "center 1,class:^(Gimp-2.10)$,title:.*Sharpen.*"
-
-        "dimaround, class:^(gcr-prompter)$"
-        "dimaround, class:^(xdg-desktop-portal-gtk)$"
-        "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
-        "dimaround, class:^(zen)$, title:^(File Upload)$"
-
-        # fix xwayland apps
-        "rounding 0, xwayland:1"
-        "center, class:^(.*jetbrains.*)$, title:^(Confirm Exit|Open Project|win424|win201|splash)$"
-        "size 640 400, class:^(.*jetbrains.*)$, title:^(splash)$"
+        "float on, match:tag modal"
+        "pin on, match:tag modal"
+        "center on, match:tag modal"
+        "float on, match:title ^(Media viewer)$"
+        "float on, match:class ^(org.gnome.Calculator)$"
+        "size 360 490, match:class ^(org.gnome.Calculator)$"
+        "float on, match:title ^(Picture-in-Picture)$"
+        "pin on, match:title ^(Picture-in-Picture)$"
+        "idle_inhibit focus, match:class ^(mpv|.+exe|celluloid)$"
+        "idle_inhibit focus, match:class ^(zen)$ match:title ^(.*YouTube.*)$"
+        "idle_inhibit fullscreen, match:class ^(zen)$"
+        "stay_focused on, match:class ^(pinentry)$"
+        "stay_focused on, match:class ^(gcr-prompter)$"
+        "stay_focused on, match:class ^(Gimp-2.10)$ match:title .*Export Image as PNG.*"
+        "stay_focused on, match:class ^(Gimp-2.10)$ match:title .*Save Image.*"
+        "group set, match:class ^(Gimp-2.10)"
+        "float on, match:class ^(Gimp-2.10)$ match:title .*Save Image.*"
+        "center 1, match:class ^(Gimp-2.10)$ match:title .*Exposure.*"
+        "center 1, match:class ^(Gimp-2.10)$ match:title .*Sharpen.*"
+        "dim_around on, match:class ^(gcr-prompter)$"
+        "dim_around on, match:class ^(xdg-desktop-portal-gtk)$"
+        "dim_around on, match:class ^(polkit-gnome-authentication-agent-1)$"
+        "dim_around on, match:class ^(zen)$ match:title ^(File Upload)$"
+        "rounding 0, match:xwayland 1"
+        "center on, match:class ^(.*jetbrains.*)$ match:title ^(Confirm Exit|Open Project|win424|win201|splash)$"
+        "size 640 400, match:class ^(.*jetbrains.*)$ match:title ^(splash)$"
       ];
 
-      layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
+      layerrule = [
+        "no_anim on, match:namespace launcher"
+        "no_anim on, match:namespace ^ags-.*"
+      ];
 
       input = {
         kb_layout = "${keyboardLayout}${extraKeyboardLayouts}";
+
+        kb_options = "caps:escape";
         follow_mouse = 1;
         sensitivity = 0.5;
         repeat_delay = 300;

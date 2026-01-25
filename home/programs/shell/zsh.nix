@@ -56,8 +56,8 @@ in {
     initContent = ''
       # ZSH_TMUX_AUTOSTART=true
 
-      # bindkey -e
-      bindkey -v
+      bindkey -e
+      # bindkey -v
 
       # search history based on what's typed in the prompt
       autoload -U history-search-end
