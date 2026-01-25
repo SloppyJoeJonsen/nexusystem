@@ -206,22 +206,6 @@ in
         "no_anim on, match:namespace ^ags-.*"
       ];
 
-      input = {
-        kb_layout = "${keyboardLayout}${extraKeyboardLayouts}";
-
-        kb_options = "caps:escape";
-        follow_mouse = 1;
-        sensitivity = 0.5;
-        repeat_delay = 300;
-        repeat_rate = 50;
-        numlock_by_default = true;
-
-        touchpad = {
-          natural_scroll = true;
-          clickfinger_behavior = true;
-        };
-      };
-
     };
   };
 }
