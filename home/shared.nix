@@ -28,8 +28,8 @@
     pnpm
     calibre # ebooks
     onlyoffice-desktopeditors # Office stuff
-    kdePackages.kdenlive # Video editor
-    kdePackages.breeze # Dark mode and theming with stylix for kdenlive
+    #kdePackages.kdenlive # Video editor
+    #kdePackages.breeze # Dark mode and theming with stylix for kdenlive
     solaar # Logitech device manager
     aider-chat # AI
     godot_4 # Gamedev
@@ -44,7 +44,6 @@
     liquidctl #Watercooling
     corectrl #actually keine ahnung mehr was das ist
     prismlauncher #Minecraft
-    vdhcoapp #Auch keine ahnung
     ryubing #Switch emulator
     r2modman
     heroic-unwrapped
