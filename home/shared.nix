@@ -15,7 +15,6 @@
 
   home.packages = with pkgs; [
     vlc
-
     blanket # White-noise app
     obsidian # Note taking app
     gnome-calendar # Calendar
@@ -47,8 +46,10 @@
     ryubing #Switch emulator
     r2modman
     heroic-unwrapped
-    appimage-run
     vesktop
+    flatpak
+    bazaar
+    xclicker
     # ranger # terminal file explorer
     # screenkey # shows keypresses on screen
     # textpieces # Manipulate texts

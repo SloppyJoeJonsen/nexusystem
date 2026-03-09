@@ -14,7 +14,7 @@
       "$mod,Q, killactive," # Close window
       "$mod,T, togglefloating," # Toggle Floating
       "$mod,F, fullscreen" # Toggle Fullscreen
-
+      "$mod,M, exec, pavucontrol"
       "$mod,h, movefocus, l" # Move focus left
       "$mod,j, movefocus, d" # Move focus down
       "$mod,k, movefocus, u" # Move focus up
