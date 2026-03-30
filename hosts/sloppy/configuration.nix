@@ -51,4 +51,6 @@
   # Don't touch this
   system.stateVersion = "24.05";
 
+  services.flatpak.enable = true;
+
 }

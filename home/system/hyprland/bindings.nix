@@ -9,12 +9,12 @@
       "$mod,TAB,exec,opened-windows" # Search opened windows
       "ALT,TAB,exec,opened-windows" # Search opened windows
       "$mod,B, exec, rofi-rbw" # Rofi-rbw (Bitwarden)
-      "$mod,C,exec,rofi -show calc -modi calc -no-show-match -no-sort" # Calculator
+      "$mod,C,exec,rofi -show calc -modi calc -no-show-match -no-sort" # Calculators
       "$mod,SPACE,exec,change-keyboard-layout" # Change keyboard layout
       "$mod,Q, killactive," # Close window
       "$mod,T, togglefloating," # Toggle Floating
       "$mod,F, fullscreen" # Toggle Fullscreen
-      "$mod,M, exec, pavucontrol"
+      "$mod,M, exec, pavucontrol" #volume controll
       "$mod,h, movefocus, l" # Move focus left
       "$mod,j, movefocus, d" # Move focus down
       "$mod,k, movefocus, u" # Move focus up

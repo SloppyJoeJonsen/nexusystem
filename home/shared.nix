@@ -36,8 +36,6 @@
     bruno # rest client
     bruno-cli # cli for bruno, needed for bruno.nvim
     crush
-    wineWowPackages.stable
-    winetricks
     pavucontrol #sound
     openlinkhub #ka
     liquidctl #Watercooling
@@ -45,20 +43,9 @@
     prismlauncher #Minecraft
     ryubing #Switch emulator
     r2modman
-    heroic-unwrapped
     vesktop
     flatpak
     bazaar
     xclicker
-    # ranger # terminal file explorer
-    # screenkey # shows keypresses on screen
-    # textpieces # Manipulate texts
-    # curtail # Compress images
-    # Just cool visuals
-    # peaclock
-    # cbonsai
-    # pipesnex
-    # cmatrix
-    # nyancat
   ];
 }
