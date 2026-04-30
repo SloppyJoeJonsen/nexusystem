@@ -23,7 +23,6 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +33,6 @@
     };
     optmz.url = "github:romek-codes/optmz";
     affinity-nix.url = "github:mrshmllow/affinity-nix";
-
     nurpkgs.url = "github:nix-community/NUR";
 
     # # TODO: Remove when fixed
@@ -54,6 +52,8 @@
                   dbgate
                   rpcs3
                   ;
+                # Fix flaky test017-syncreplication-refresh in sandboxed builds
+                openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
                 # Both of these are being overlayed to have support for --sensitive flag, to not save passwords to cliphist.
                 # Just take latest commit as release
                 # github.com/bugaevc/wl-clipboard/issues/260

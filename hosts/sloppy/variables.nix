@@ -12,7 +12,7 @@
 
       browsers = [ "zen" ];
 
-      editors = [ "nvim" "vscode" ];
+      editors = ["vscode" ];
 
       musicApps = [ "youtube-music" ];
 
