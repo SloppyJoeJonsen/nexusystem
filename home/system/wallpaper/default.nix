@@ -37,8 +37,11 @@ in {
 
         monitor2_wallpapers=(
           "${./berserk-eclipse.mp4}"
-          "${./gachia.mp4}"
+          "${./Dragonball.mp4}"
           "${./galaxy-cat.mp4}"
+          "${./rayquaza.mp4}"
+          "${./kirby.mp4}"
+          "${./goku.mp4}"
           "${./touch-grass.mp4}"
         )
 
@@ -46,6 +49,8 @@ in {
           "${./minecraft.mp4}"
           "${./initial-d.mp4}"
           "${./bakugo.mp4}"
+          "${./rayquaza.mp4}"
+          "${./goku.mp4}"
         )
 
         # Function to rotate wallpapers on a specific monitor

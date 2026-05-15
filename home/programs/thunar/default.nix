@@ -30,7 +30,7 @@ in {
     gtk3 = {
       bookmarks = [
         "file:///home/${user}/Downloads Downloads"
-        "file:///home/${user}/Pictures Pictures"
+        "file:///storage/games Games"
         "file:///home/${user}/Documents Documents"
         "file://${configDirectory} Nexusystem"
       ];
